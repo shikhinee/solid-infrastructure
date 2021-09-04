@@ -79,7 +79,7 @@ const Routes = {
   },
 };
 
-const DashboardLayout = ({ children, ...props }) => {
+const DashboardLayout = ({ children }) => {
   const [menuIsCollapsed, setMenuIsCollapsed] = useState(false);
   const handleCollapse = () => {
     setMenuIsCollapsed(!menuIsCollapsed);

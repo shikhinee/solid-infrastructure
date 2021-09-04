@@ -14,8 +14,10 @@ const DashboardPage = (props) => {
   return <main>this is dashboard</main>;
 };
 
-DashboardPage.getLayout = (page) => {
-  return <DashboardLayout>{page}</DashboardLayout>;
-};
+DashboardPage.Layout = DashboardLayout;
+
+// DashboardPage.getLayout = (page) => {
+//   return <DashboardLayout>{page}</DashboardLayout>;
+// };
 
 export default DashboardPage;

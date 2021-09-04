@@ -14,8 +14,10 @@ const BankInfoPage = (props) => {
   return <main>THIS IS THE USER BANK INFO PAGE</main>;
 };
 
-BankInfoPage.getLayout = (page) => {
-  return <DashboardLayout>{page}</DashboardLayout>;
-};
+BankInfoPage.Layout = DashboardLayout;
+
+// BankInfoPage.getLayout = (page) => {
+//   return <DashboardLayout>{page}</DashboardLayout>;
+// };
 
 export default BankInfoPage;

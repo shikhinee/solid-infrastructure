@@ -1,4 +1,4 @@
-import Head from "next/head";
+import { Fragment } from "react";
 
 import ThemeLayout from "layouts/Theme";
 
@@ -7,10 +7,19 @@ import { ThemeContextProvider } from "store/ThemeContext";
 import "sass/app.scss";
 
 const App = ({ Component, pageProps }) => {
-  const getLayout = Component.getLayout || ((page) => page);
+  // const getLayout = Component.getLayout || ((page) => page);
+  const Layout = Component.Layout ? Component.Layout : Fragment;
   return (
     <ThemeContextProvider>
-      <ThemeLayout>{getLayout(<Component {...pageProps} />)}</ThemeLayout>
+      <ThemeLayout>
+        {
+          // getLayout(
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          // )
+        }
+      </ThemeLayout>
     </ThemeContextProvider>
   );
 };

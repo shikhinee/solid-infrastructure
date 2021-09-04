@@ -11,15 +11,13 @@ import DashboardLayout from "@/layouts/Dashboard";
 //import COMPONENT from 'components/COMPONENT'
 
 const AddPage = (props) => {
-    return (
-        <main>
-            THIS IS THE PROJECT ADD PAGE
-        </main>
-    )
+  return <main>THIS IS THE PROJECT ADD PAGE</main>;
 };
 
-AddPage.getLayout = (page) => {
-    return <DashboardLayout>{page}</DashboardLayout>;
-  };
+AddPage.Layout = DashboardLayout;
+
+// AddPage.getLayout = (page) => {
+//   return <DashboardLayout>{page}</DashboardLayout>;
+// };
 
 export default AddPage;

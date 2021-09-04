@@ -14,8 +14,10 @@ const RequestsPage = (props) => {
   return <main> THIS IS THE REQUESTS PAGE</main>;
 };
 
-RequestsPage.getLayout = (page) => {
-  return <DashboardLayout>{page}</DashboardLayout>;
-};
+RequestsPage.Layout = DashboardLayout;
+
+// RequestsPage.getLayout = (page) => {
+//   return <DashboardLayout>{page}</DashboardLayout>;
+// };
 
 export default RequestsPage;

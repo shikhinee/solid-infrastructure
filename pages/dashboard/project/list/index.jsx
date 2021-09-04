@@ -14,8 +14,10 @@ const ListPage = (props) => {
   return <main>THIS IS THE PROJECT LIST PAGE</main>;
 };
 
-ListPage.getLayout = (page) => {
-  return <DashboardLayout>{page}</DashboardLayout>;
-};
+ListPage.Layout = DashboardLayout;
+
+// ListPage.getLayout = (page) => {
+//   return <DashboardLayout>{page}</DashboardLayout>;
+// };
 
 export default ListPage;

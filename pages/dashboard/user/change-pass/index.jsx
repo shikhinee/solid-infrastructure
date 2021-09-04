@@ -14,8 +14,10 @@ const ChangePassPage = (props) => {
   return <main>THIS IS THE USER CHANGE PASS PAGE</main>;
 };
 
-ChangePassPage.getLayout = (page) => {
-  return <DashboardLayout>{page}</DashboardLayout>;
-};
+ChangePassPage.Layout = DashboardLayout;
+
+// ChangePassPage.getLayout = (page) => {
+//   return <DashboardLayout>{page}</DashboardLayout>;
+// };
 
 export default ChangePassPage;
