@@ -1,41 +1,18 @@
-import { MongoClient } from "mongodb";
+import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-const MONGODB_DB = process.env.MONGODB_DB;
+const connection = {};
 
-if (!MONGO_URI) {
-  throw new Error("PROVIDE MONGODB_URI");
-};
+async function dbConnect() {
+    if (connection.isConnected) {
+        return;
+    }
 
-if (!MONGODB_DB) {
-  throw new Error("PROVIDE MONGODB_DB");
+    const db = await mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+
+    connection.isConnected = db.connections[0].readyState;
 }
 
-let cached = global.mongo;
-
-if (!cached) {
-  cached = global.mongo = { conn: null, promise: null };
-};
-
-export const connectToDatabase = async () => {
-  if (cached.conn) {
-    return cached.conn;
-  };
-
-  if (!cached.promise) {
-    const options = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    };
-
-    cached.promise = MongoClient.connect(MONGODB_URI, options).then((client) => {
-      return {
-        client,
-        db: client.db(MONGODB_DB),
-      };
-    });
-  };
-
-  cached.conn = cached.promise;
-  return cached.conn;
-};
+export default dbConnect;
