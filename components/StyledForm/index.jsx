@@ -3,10 +3,10 @@
 //Styles must be imported here
 import styles from "./StyledForm.module.scss";
 
-const StyledForm = (props) => {
+const StyledForm = ({ onSubmit, children }) => {
   return (
-    <form onSubmit={props.onSubmit} className={styles.container}>
-      {props.children}
+    <form onSubmit={onSubmit} className={styles.container}>
+      {children}
     </form>
   );
 };
