@@ -30,13 +30,13 @@ export default async(req, res) => {
                         timeLog: { $elemMatch: { Date: getDate() } }, 
                         _id: id })
 
-                if (reqUser) return res.status(200).json({ success: false, msg: "ta unuudr burtguulsen bn" })
+                if (reqUser) return res.status(200).json({ success: true, isRegistered: true, msg: "ta unuudr burtguulsen bn" })
 
-                res.status(201).json({ success: true, msg: "make that button visible bro"})
+                res.status(201).json({ success: true, isRegistered: false, msg: "make that button visible bro"})
 
             } catch (error) {
                 console.log(error)
-                res.status(400).json({ success: false });
+                res.status(400).json({ success: false, isRegistered: false });
             }
             break;
 

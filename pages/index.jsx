@@ -1,51 +1,47 @@
-import Router from "next/router";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
+import axios from "axios";
 
 import TimeLogLayout from "layouts/TimeLog";
-
-// import TestField from "components/TestField";
 
 import PrimaryButton from "components/PrimaryButton";
 import PrimaryLink from "components/PrimaryLink";
 import TimeLog from "composites/TimeLog";
 
+import { useTimeLog } from "@/tools/useTimeLog";
+
 const RootPage = (props) => {
-  const [isUser, setIsUser] = useState(true);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [registerInitiated, setRegisterInitiated] = useState(false);
+
+  const {
+    data: initialData,
+    isLoading: initialLoading,
+    isError: initialIsError,
+  } = useTimeLog("6131f2c3f5380cdd95595760");
+
+  if (initialLoading) return null;
 
   const handleRegistration = () => {
-    if (!isUser) {
-      Router.push("/login");
-    }
+    axios.post("/api/timelog/6131f2c3f5380cdd95595760");
 
-    if (!isRegistered) {
-      setIsRegistered(true);
-    }
+    setRegisterInitiated(true);
   };
 
   return (
     <TimeLogLayout>
       <main>
-        {/* <TestField>
-          <div>isUser: {`${isUser}`}</div>
-          <div>isRegistered: {`${isRegistered}`}</div>
-        </TestField> */}
-
         <h1>
           <span>Solid</span>
           <span>Infrastructure</span>
         </h1>
-        {!isRegistered && (
-          <PrimaryButton onClick={handleRegistration}>
-            Цаг бүртгүүлэх
-          </PrimaryButton>
-        )}
-
-        {isRegistered && (
+        {((initialData.isRegistered || registerInitiated) && (
           <Fragment>
             <TimeLog />
             <PrimaryLink href="/dashboard">Dashboard</PrimaryLink>
           </Fragment>
+        )) || (
+          <PrimaryButton onClick={handleRegistration}>
+            Цаг Бүртгүүлэх
+          </PrimaryButton>
         )}
       </main>
     </TimeLogLayout>
