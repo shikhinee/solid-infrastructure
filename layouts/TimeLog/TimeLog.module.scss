@@ -1,0 +1,41 @@
+@import "global";
+
+.container {
+  main {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2.4rem;
+
+    @include respondMax(md) {
+      font-size: 2rem;
+    }
+
+    @include respondMax(xs) {
+      font-size: 1.6rem;
+    }
+
+    h1 {
+      margin: 1em;
+
+      @include respondMax(sm) {
+        display: flex;
+        flex-direction: column;
+      }
+
+      span:first-of-type {
+        color: $clr-neutral-1;
+        margin-right: 0.5em;
+      }
+    }
+
+    a {
+      margin-top: 1em;
+    }
+  }
+}

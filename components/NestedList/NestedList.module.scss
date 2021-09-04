@@ -1,0 +1,23 @@
+@import "global";
+
+.container {
+  position: relative;
+
+  .head {
+    cursor: pointer;
+  }
+
+  ul {
+    overflow: hidden;
+    margin-left: 1em;
+
+    li {
+      margin-bottom: 1em;
+      padding: 1em 1.7em;
+    }
+  }
+
+  li {
+    position: relative;
+  }
+}
