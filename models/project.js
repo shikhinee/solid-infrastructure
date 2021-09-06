@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
     
-    projectname: {
+    projectName: {
         type: String,
         required: true,
         lowercase: true,
@@ -25,7 +25,7 @@ const projectSchema = new mongoose.Schema({
     },
     dateCompleted: {
         type: Date,
-        defualt: null,
+        default: null,
     },
     users: [],
     isOn: {
@@ -34,8 +34,7 @@ const projectSchema = new mongoose.Schema({
     },
     isComplete: {
         type: Boolean,
-        defualt: false,
-        required: true,
+        default: false,
     },
     deadline: {
         type: Date,

@@ -66,14 +66,14 @@ const Routes = {
     route: `${rootPath}/project`,
     subRoutes: [
       {
-        title: "Төсөл нэмэх",
-        icon: IconWrapper(FolderPlus),
-        route: `${rootPath}/project/add`,
-      },
-      {
         title: "Төсөл жагсаалт",
         icon: IconWrapper(FolderOpen),
         route: `${rootPath}/project/list`,
+      },
+      {
+        title: "Төсөл нэмэх",
+        icon: IconWrapper(FolderPlus),
+        route: `${rootPath}/project/add`,
       },
     ],
   },

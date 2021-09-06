@@ -24,19 +24,21 @@ export default async (req, res) => {
         case 'POST':
             try {
 
-                const { projectname, companyName, lead, users , deadline } = req.body;
-                const project = await Project.findOne({ projectname: projectname})
+                const { projectName, companyName, lead, users , deadline } = req.body;
+                const project = await Project.findOne({ projectName: projectName})
 
                 if (project) 
                     return res.status(200).json({ success: false, msg: 'project already exists' })                
 
                 const myProject = {
-                    projectname,
+                    projectName,
                     companyName,
                     lead,
                     users,
                     deadline
-                }                    
+                }
+
+                console.log(myProject);
 
                 const newProject = await Project.create(myProject);
                 
