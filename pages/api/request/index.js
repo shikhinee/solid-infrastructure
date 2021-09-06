@@ -1,7 +1,7 @@
-import dbConnect from "@/utils/database";
-import { hashPassword } from "@/utils/auth";
-import UserRequest from '@/models/userRequest'
-import User from '@/models/users'
+import dbConnect from "../../../utils/database";
+import { hashPassword } from "../../../utils/auth";
+import UserRequest from '../../../models/userRequest'
+import User from '../../../models/users'
 
 dbConnect()
 

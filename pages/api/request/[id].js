@@ -20,7 +20,7 @@ export default async(req, res) => {
 
                 if (!userReq) {
                     return res.status(400).json({ success: false });
-                }
+                }                               
 
                 const userRegister = {
                     username: userReq.username,
@@ -30,6 +30,9 @@ export default async(req, res) => {
                     role: role
                 }
 
+                const checkUser = await User.findOne({ username: userRegister.username });
+                if(checkUser) return res.status(200).json({ success: false, message: "user already exists" })
+ 
                 const newUser = await User.create(userRegister);
                 await UserRequest.deleteOne({ _id: id })
 
