@@ -34,7 +34,7 @@ export default async (req, res) => {
         case 'PUT':
             try {
 
-                const { users , deadline , isOn , isComplete } = req.body;
+                const { projectName , companyName , lead , users , deadline , isOn , isComplete } = req.body;
 
                 var newQuery = {
                     $set: 
@@ -44,6 +44,16 @@ export default async (req, res) => {
                     $push: {
 
                     }         
+                }
+
+                if (projectName) {
+                    newQuery.$set.projectName = projectName
+                }
+                if (companyName) {
+                    newQuery.$set.companyName = companyName
+                }
+                if (lead) {
+                    newQuery.$set.lead = lead
                 }
 
                 if (isComplete) {
