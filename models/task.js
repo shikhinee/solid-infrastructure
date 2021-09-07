@@ -13,12 +13,10 @@ const taskSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: true,
         maxlength: 16
     },
     fullname: {
         type: String,
-        required: true,
         maxlength: 50
     },
     content: {
@@ -27,7 +25,6 @@ const taskSchema = new mongoose.Schema({
     },
     Date: {
         type: Date,
-        required: true,
         default: Date.now
     },
     isComplete: {
