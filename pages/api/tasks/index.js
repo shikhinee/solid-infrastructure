@@ -9,8 +9,10 @@ function getDate() {
   return new Date(today).toISOString().substring(0, 10);
 }
 
-const taskHandler =  async (req, res) => {
+const taskHandler = async (req, res) => {
   const { method } = req;
+
+  console.log(method);
 
   switch (method) {
     case "GET":
@@ -21,12 +23,11 @@ const taskHandler =  async (req, res) => {
         console.log(error);
         res.status(400).json({ success: false });
       }
+      break;
 
     case "POST":
       try {
         const { projectID, userID, content } = req.body;
-
-        console.log(projectID);
 
         const userInfo = await User.findOne({ _id: userID });
 
@@ -40,11 +41,13 @@ const taskHandler =  async (req, res) => {
         };
 
         await Task.create(newTask);
+
         res.status(201).json({ success: true, data: newTask });
       } catch (error) {
         console.log(error);
         res.status(400).json({ success: false });
       }
+      break;
 
     default:
       res.status(400).json({ success: false });
