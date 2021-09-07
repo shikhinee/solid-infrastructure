@@ -1,72 +1,83 @@
 import dbConnect from "../../../utils/database";
-import User from '../../../models/users'
+import User from "../../../models/users";
 
-dbConnect()
+dbConnect();
 
 function getDate() {
-    const today = new Date();
-    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    return date;
+  const today = new Date();
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  return date;
 }
 
 function getTime() {
-    const today = new Date();
-    const time = today.getHours() + ":" + today.getMinutes();
-    return time;
+  const today = new Date();
+  const time = today.getHours() + ":" + today.getMinutes();
+  return time;
 }
 
-export default async(req, res) => {
+const timeLogHandler = async (req, res) => {
+  const {
+    query: { id },
+    method,
+  } = req;
 
-    const {
-        query: { id },
-        method
-    } = req;
+  switch (method) {
+    case "GET":
+      try {
+        const reqUser = await User.findOne({
+          timeLog: { $elemMatch: { Date: getDate() } },
+          _id: id,
+        });
 
-    switch (method) {
+        if (reqUser)
+          return res
+            .status(200)
+            .json({
+              success: true,
+              isRegistered: true,
+              msg: "ta unuudr burtguulsen bn",
+            });
 
-        case 'GET':
-            try {
-                const reqUser = await User.findOne({ 
-                        timeLog: { $elemMatch: { Date: getDate() } }, 
-                        _id: id })
+        res
+          .status(201)
+          .json({
+            success: true,
+            isRegistered: false,
+            msg: "make that button visible bro",
+          });
+      } catch (error) {
+        console.log(error);
+        res.status(400).json({ success: false, isRegistered: false });
+      }
+      break;
 
-                if (reqUser) return res.status(200).json({ success: true, isRegistered: true, msg: "ta unuudr burtguulsen bn" })
+    case "POST":
+      try {
+        const reqUser = await User.findOne({
+          timeLog: { $elemMatch: { Date: getDate() } },
+          _id: id,
+        });
 
-                res.status(201).json({ success: true, isRegistered: false, msg: "make that button visible bro"})
+        if (reqUser)
+          return res
+            .status(200)
+            .json({ success: false, msg: "ta unuudr burtguulsen bn" });
 
-            } catch (error) {
-                console.log(error)
-                res.status(400).json({ success: false, isRegistered: false });
-            }
-            break;
+        const newTimeLog = { Date: getDate(), ArrivalTime: getTime() };
+        await User.updateOne({ _id: id }, { $push: { timeLog: newTimeLog } });
 
-        case 'POST':
-            try {
-                
-                const reqUser = await User.findOne({ 
-                    timeLog: { $elemMatch: { Date: getDate() } }, 
-                    _id: id })
+        res.status(201).json({ success: true, msg: "amjilttai burtgelee" });
+      } catch (error) {
+        console.log(error);
+        res.status(400).json({ success: false });
+      }
+      break;
 
-                if (reqUser) return res.status(200).json({ success: false, msg: "ta unuudr burtguulsen bn" })
+    default:
+      res.status(400).json({ success: false });
+      break;
+  }
+};
 
-                const newTimeLog = { Date: getDate() , ArrivalTime: getTime()}
-                await User.updateOne(
-                    { _id: id },
-                    { $push: 
-                        { timeLog: newTimeLog } 
-                    }
-                )
-
-                res.status(201).json({ success: true, msg: "amjilttai burtgelee"})
-
-            } catch (error) {
-                console.log(error)
-                res.status(400).json({ success: false })
-            }
-            break;
-
-        default:
-            res.status(400).json({ success: false })
-            break;
-        }
-}
+export default timeLogHandler;

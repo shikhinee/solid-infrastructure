@@ -1,55 +1,55 @@
 import dbConnect from "../../../utils/database";
-import Project from '../../../models/project'
+import Project from "../../../models/project";
 // import UserRequest from '../../../models/userRequest'
-import User from '../../../models/users'
+import User from "../../../models/users";
 
-dbConnect()
+dbConnect();
 
-export default async (req, res) => {
+const projectHandler = async (req, res) => {
+  const { method } = req;
 
-    const { method } = req
+  switch (method) {
+    case "GET":
+      try {
+        const projects = await Project.find({});
 
-    switch (method) {
+        res.status(200).json({ success: true, data: projects });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
 
-        case 'GET':
-            try {
-                const projects = await Project.find({});
+    case "POST":
+      try {
+        const { projectName, companyName, lead, users, deadline } = req.body;
+        const project = await Project.findOne({ projectName: projectName });
 
-                res.status(200).json({ success: true, data: projects })
-            } catch (error) {
-                res.status(400).json({ success: false });
-            }
-            break;
+        if (project)
+          return res
+            .status(200)
+            .json({ success: false, msg: "project already exists" });
 
-        case 'POST':
-            try {
+        const myProject = {
+          projectName,
+          companyName,
+          lead,
+          users,
+          deadline,
+        };
 
-                const { projectName, companyName, lead, users , deadline } = req.body;
-                const project = await Project.findOne({ projectName: projectName})
+        const newProject = await Project.create(myProject);
 
-                if (project) 
-                    return res.status(200).json({ success: false, msg: 'project already exists' })                
+        res.status(201).json({ success: true, data: newProject });
+      } catch (error) {
+        console.log(error);
+        res.status(400).json({ success: false });
+      }
+      break;
 
-                const myProject = {
-                    projectName,
-                    companyName,
-                    lead,
-                    users,
-                    deadline
-                }
+    default:
+      res.status(400).json({ success: false });
+      break;
+  }
+};
 
-                const newProject = await Project.create(myProject);
-                
-                res.status(201).json({ success: true, data: newProject })
-
-            } catch (error) {
-                console.log(error)
-                res.status(400).json({ success: false });
-            }
-            break;
-
-        default:
-            res.status(400).json({ success: false });
-            break;
-    }
-}
+export default projectHandler;

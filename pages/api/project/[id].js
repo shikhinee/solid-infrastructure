@@ -9,7 +9,7 @@ function getDate() {
   return new Date(today).toISOString().substring(0, 10);
 }
 
-export default async (req, res) => {
+const projectModHandler = async (req, res) => {
   const {
     query: { id },
     method,
@@ -91,3 +91,5 @@ export default async (req, res) => {
       break;
   }
 };
+
+export default projectModHandler
