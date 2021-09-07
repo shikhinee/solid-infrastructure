@@ -22,7 +22,6 @@ const ChangePassPage = (props) => {
   });
 
   const handleInputFormData = (e) => {
-    console.log([e.target.name], e.target.value);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -31,7 +30,6 @@ const ChangePassPage = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
 
     axios.put("/api/changepassword/6135b6521b595cb8b38c8a03", formData);
   };

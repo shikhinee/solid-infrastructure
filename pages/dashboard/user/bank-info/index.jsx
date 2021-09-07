@@ -28,7 +28,6 @@ const BankInfoPage = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
 
     axios.put("/api/updatebank/6135b6521b595cb8b38c8a03", formData);
   };

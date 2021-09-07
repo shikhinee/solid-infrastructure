@@ -38,8 +38,6 @@ export default async (req, res) => {
                     deadline
                 }
 
-                console.log(myProject);
-
                 const newProject = await Project.create(myProject);
                 
                 res.status(201).json({ success: true, data: newProject })

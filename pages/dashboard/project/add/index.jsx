@@ -69,7 +69,7 @@ const AddPage = (props) => {
           />
         </div>
         <div>
-          <label htmlFor="deadline">lead</label>
+          <label htmlFor="deadline">Deadline</label>
           <input
             type="date"
             name="deadline"

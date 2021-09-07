@@ -21,7 +21,6 @@ const RequestsPage = (props) => {
   if (isLoading) return null;
 
   const handleAccept = (id) => {
-    console.log("ACCEPT:", id);
     axios.put(`/api/request/${id}`, {
       role: {
         name: "Developer",
@@ -32,7 +31,6 @@ const RequestsPage = (props) => {
   };
 
   const handleDeny = (id) => {
-    console.log("DENY:", id);
     axios.delete(`/api/request/${id}`);
     setActionTriggerCount(actionTriggerCount + 1);
   };
