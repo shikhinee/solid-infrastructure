@@ -12,15 +12,43 @@ function getDate() {
 const taskHandler =  async (req, res) => {
   const { method } = req;
 
+  
+
   switch (method) {
     case "GET":
+
+
+      
+
+
+      const { userID , projectID , Date , startDate , endDate } = req.body;
+      var newQuery = {};
+
+      
+
       try {
-        const tasks = await Task.find({});
+
+        if (userID) {
+          newQuery.userID = userID;
+        }
+        if (projectID) {
+          newQuery.projectID = projectID;
+        }
+        if (Date) {
+          newQuery.Date = Date;
+        }
+        if (startDate && endDate) {
+          newQuery.Date = { $gte: startDate, $lte: endDate };
+        }
+
+        const tasks = await Task.find(newQuery);
         res.status(200).json({ success: true, data: tasks });
       } catch (error) {
         console.log(error);
         res.status(400).json({ success: false });
       }
+
+      break;
 
     case "POST":
       try {
@@ -40,11 +68,15 @@ const taskHandler =  async (req, res) => {
         };
 
         await Task.create(newTask);
+
         res.status(201).json({ success: true, data: newTask });
+        
       } catch (error) {
         console.log(error);
         res.status(400).json({ success: false });
       }
+
+      break;
 
     default:
       res.status(400).json({ success: false });
