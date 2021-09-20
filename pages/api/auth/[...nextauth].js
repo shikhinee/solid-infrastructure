@@ -1,6 +1,12 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+import dbConnect from "@/utils/database";
+import User from "@/models/users";
+import { verifyPassword } from "@/utils/auth";
+
+dbConnect();
+
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -17,16 +23,24 @@ export default NextAuth({
 
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
+
+        // console.log(credentials)
+
+        const reqUser = await User.findOne({ username: credentials.username });
+        const isValid = await verifyPassword(
+          credentials.password,
+          reqUser.password
+        );
+
         const user = {
-          id: 1,
-          name: "J Smith",
-          email: "jsmith@example.com",
-          attribute: "Custom",
+          id: reqUser._id,
+          fullname: reqUser.fullname,
+          phone: reqUser.phoneNumber,
+          role: reqUser.role,
         };
 
-        if (user) {
+        if (isValid && reqUser) {
           // Any object returned will be saved in `user` property of the JWT
-          console.log("USER @ CREDENTIALS");
           return user;
         } else {
           // If you return null or false then the credentials will be rejected
