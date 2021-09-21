@@ -13,22 +13,26 @@ import { useSession, signIn, signOut } from "next-auth/client";
 const NextauthPage = (props) => {
   const session = useSession();
 
-  console.log("CLIENT SESSION:", session)
+  console.log("CLIENT SESSION:", session[0])
 
-  // if (session[1]) {
-  //   return (
-  //     <>
-  //       {/* Signed in as {session.user.email} <br /> */}
-  //       <button onClick={() => signOut()}>Sign out</button>
-  //     </>
-  //   );
-  // }
+  if (session[1]) {
 
-  return (
-    <main>
-      <button onClick={() => signIn()}>Sign in</button>
-    </main>
-  );
+    console.log(session[1])
+    return (
+      <>
+        {/* Signed in as {session.user.email} <br /> */}
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  } else {
+    return (
+      <main>
+        <button onClick={() => signIn()}>Sign in</button>
+      </main>
+    );
+  }
+
+  
 };
 
 export default NextauthPage;

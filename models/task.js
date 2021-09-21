@@ -30,7 +30,11 @@ const taskSchema = new mongoose.Schema({
     isComplete: {
         type: Boolean,
         defualt: false,
-    }
+    },
+    threads: [{
+        Date: { type:String },
+        content: { type: String , required: true},
+    }]
 })
 
 module.exports = mongoose.models.Task || mongoose.model('Task', taskSchema);

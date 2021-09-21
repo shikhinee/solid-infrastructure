@@ -34,7 +34,7 @@ const SignupPage = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormIsSent(true);
-
+    console.log(formData)
     axios.post("/api/request", formData);
   };
 
